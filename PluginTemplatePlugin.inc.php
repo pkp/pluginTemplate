@@ -13,6 +13,10 @@
  */
 import('lib.pkp.classes.plugins.GenericPlugin');
 class PluginTemplatePlugin extends GenericPlugin {
+
+	/**
+	 * @copydoc GenericPlugin::register()
+	 */
 	public function register($category, $path, $mainContextId = NULL) {
 		$success = parent::register($category, $path);
 		if ($success && $this->getEnabled()) {
@@ -27,6 +31,8 @@ class PluginTemplatePlugin extends GenericPlugin {
 	 *
 	 * The name will appear in the Plugin Gallery where editors can
 	 * install, enable and disable plugins.
+	 *
+	 * @return string
 	 */
 	public function getDisplayName() {
 		return __('plugins.generic.pluginTemplate.displayName');
@@ -37,6 +43,8 @@ class PluginTemplatePlugin extends GenericPlugin {
 	 *
 	 * The description will appear in the Plugin Gallery where editors can
 	 * install, enable and disable plugins.
+	 *
+	 * @return string
 	 */
 	public function getDescription() {
 		return __('plugins.generic.pluginTemplate.description');
@@ -44,6 +52,8 @@ class PluginTemplatePlugin extends GenericPlugin {
 
 	/**
 	 * Enable the settings form in the site-wide plugins list
+	 *
+	 * @return string
 	 */
 	public function isSitePlugin() {
 		return true;
@@ -164,7 +174,7 @@ class PluginTemplatePlugin extends GenericPlugin {
 
 		// Add the publication statement to the output
 		$output =& $params[2];
-		$output .= '<p class="publication-statement">' . $publicationStatement . '</p>';
+		$output .= '<p class="publication-statement">' . PKPString::stripUnsafeHtml($publicationStatement) . '</p>';
 
 		return false;
 	}
