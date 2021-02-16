@@ -1,14 +1,12 @@
 <?php
 /**
- * @file plugins/generic/pluginTemplate/PluginTemplatePlugin.inc.php
+ * @file PluginTemplatePlugin.inc.php
  *
- * Copyright (c) 2017-2019 Simon Fraser University
- * Copyright (c) 2017-2019 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2017-2021 Simon Fraser University
+ * Copyright (c) 2017-2021 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PluginTemplatePlugin
- * @ingroup plugins_generic_pluginTemplate
- *
  * @brief Plugin class for the PluginTemplate plugin.
  */
 import('lib.pkp.classes.plugins.GenericPlugin');
