@@ -157,8 +157,8 @@ class PluginTemplatePlugin extends GenericPlugin {
 	function addPublicationStatement($hookName, $params) {
 
 		// Get the publication statement for this journal or press
-    $context = Application::get()->getRequest()->getContext();
-    $contextId = $context ? $context->getId() : CONTEXT_SITE;
+		$context = Application::get()->getRequest()->getContext();
+		$contextId = $context ? $context->getId() : CONTEXT_SITE;
 		$publicationStatement = $this->getSetting($contextId, 'publicationStatement');
 
 		// If the journal or press does not have a publication statement,
