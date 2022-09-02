@@ -51,7 +51,7 @@ class PluginTemplatePlugin extends GenericPlugin {
 	/**
 	 * Enable the settings form in the site-wide plugins list
 	 *
-	 * @return string
+	 * @return boolean
 	 */
 	public function isSitePlugin() {
 		return true;
