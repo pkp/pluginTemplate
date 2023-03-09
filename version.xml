@@ -3,8 +3,8 @@
 <!--
   * version.xml
   *
-  * Copyright (c) 2017-2021 Simon Fraser University
-  * Copyright (c) 2017-2021 John Willinsky
+  * Copyright (c) 2017-2023 Simon Fraser University
+  * Copyright (c) 2017-2023 John Willinsky
   * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
   *
   * Plugin version information.
@@ -13,7 +13,5 @@
 	<application>pluginTemplate</application>
 	<type>plugins.generic</type>
 	<release>1.0.0.0</release>
-	<date>2019-05-15</date>
-	<lazy-load>1</lazy-load>
-	<class>PluginTemplatePlugin</class>
+	<date>2023-05-15</date>
 </version>

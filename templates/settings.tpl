@@ -1,8 +1,8 @@
 {**
  * templates/settings.tpl
  *
- * Copyright (c) 2014-2021 Simon Fraser University
- * Copyright (c) 2003-2021 John Willinsky
+ * Copyright (c) 2014-2023 Simon Fraser University
+ * Copyright (c) 2003-2023 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * Settings form for the pluginTemplate plugin.
@@ -22,15 +22,13 @@
 	<!-- Always add the csrf token to secure your form -->
 	{csrf}
 
-	{fbvFormArea}
-		{fbvFormSection label="plugins.generic.pluginTemplate.publicationStatement"}
-			{fbvElement
-				type="text"
-				id="publicationStatement"
-				value=$publicationStatement
-				description="plugins.generic.pluginTemplate.publicationStatement.description"
-			}
-		{/fbvFormSection}
-	{/fbvFormArea}
+	{fbvFormSection label="plugins.generic.pluginTemplate.publicationStatement"}
+		{fbvElement
+			type="text"
+			id="publicationStatement"
+			value=$publicationStatement
+			description="plugins.generic.pluginTemplate.publicationStatement.description"
+		}
+	{/fbvFormSection}
 	{fbvFormButtons submitText="common.save"}
 </form>
