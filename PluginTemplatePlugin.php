@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file PluginTemplatePlugin.inc.php
+ * @file PluginTemplatePlugin.php
  *
  * Copyright (c) 2017-2023 Simon Fraser University
  * Copyright (c) 2017-2023 John Willinsky
