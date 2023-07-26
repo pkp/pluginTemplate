@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file PluginTemplatePlugin.inc.php
+ * @file PluginTemplatePlugin.php
  *
  * Copyright (c) 2017-2023 Simon Fraser University
  * Copyright (c) 2017-2023 John Willinsky
@@ -28,12 +28,12 @@ class PluginTemplatePlugin extends GenericPlugin
     /**
      * @copydoc GenericPlugin::register()
      */
-    public function register($category, $path, $mainContextId = NULL)
+    public function register($category, $path, $mainContextId = null)
     {
         $success = parent::register($category, $path);
         if ($success && $this->getEnabled()) {
             // Display the publication statement on the article details page
-            Hook::add('Templates::Article::Main', [$this, 'addPublicationStatement']);
+            Hook::add('Templates::Article::Main', $this->addPublicationStatement(...));
         }
         return $success;
     }
@@ -43,10 +43,8 @@ class PluginTemplatePlugin extends GenericPlugin
      *
      * The name will appear in the Plugin Gallery where editors can
      * install, enable and disable plugins.
-     *
-     * @return string
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return __('plugins.generic.pluginTemplate.displayName');
     }
@@ -56,20 +54,16 @@ class PluginTemplatePlugin extends GenericPlugin
      *
      * The description will appear in the Plugin Gallery where editors can
      * install, enable and disable plugins.
-     *
-     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return __('plugins.generic.pluginTemplate.description');
     }
 
     /**
      * Enable the settings form in the site-wide plugins list
-     *
-     * @return boolean
      */
-    public function isSitePlugin()
+    public function isSitePlugin(): bool
     {
         return true;
     }
@@ -161,15 +155,13 @@ class PluginTemplatePlugin extends GenericPlugin
     /**
      * Add the publication statement to the article details page.
      *
-     * @param string $hookName string
      * @param array $params [[
      *     @option array Additional parameters passed with the hook
      *     @option TemplateManager
      *     @option string The HTML output
      * ]]
-     * @return boolean
      */
-    public function addPublicationStatement($hookName, $params)
+    public function addPublicationStatement(string $hookName, array $params): bool
     {
 
         // Get the publication statement for this journal or press

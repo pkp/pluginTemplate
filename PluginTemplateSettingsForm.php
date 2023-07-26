@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * @file PluginTemplateSettingsForm.php
+ *
+ * Copyright (c) 2017-2023 Simon Fraser University
+ * Copyright (c) 2017-2023 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class PluginTemplateSettingsForm
+ * @brief Settings form class for the PluginTemplate plugin.
+ */
+
 namespace APP\plugins\generic\pluginTemplate;
 
 use APP\core\Application;
@@ -10,9 +22,6 @@ use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
 
 class PluginTemplateSettingsForm extends Form {
-
-    public PluginTemplatePlugin $plugin;
-
     /**
      * Defines the settings form's template and adds
      * validation checks.
@@ -20,11 +29,9 @@ class PluginTemplateSettingsForm extends Form {
      * Always add POST and CSRF validation to secure
      * your form.
      */
-    public function __construct(PluginTemplatePlugin $plugin)
+    public function __construct(public PluginTemplatePlugin $plugin)
     {
         parent::__construct($plugin->getTemplateResource('settings.tpl'));
-
-        $this->plugin = $plugin;
 
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
@@ -42,9 +49,7 @@ class PluginTemplateSettingsForm extends Form {
             ->getRequest()
             ->getContext();
 
-        $contextId = $context
-            ? $context->getId()
-            : Application::CONTEXT_SITE;
+        $contextId = $context?->getId() ?? Application::CONTEXT_SITE;
 
         $this->setData(
             'publicationStatement',
@@ -96,9 +101,7 @@ class PluginTemplateSettingsForm extends Form {
             ->getRequest()
             ->getContext();
 
-        $contextId = $context
-            ? $context->getId()
-            : Application::CONTEXT_SITE;
+        $contextId = $context?->getId() ?? Application::CONTEXT_SITE;
 
         $this->plugin->updateSetting(
             $contextId,
