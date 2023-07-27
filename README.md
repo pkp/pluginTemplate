@@ -1,9 +1,9 @@
 # pluginTemplate
-A starter template for building your own plugins for OJS and OMP.
+A starter template for building your own plugins for OJS, OPS, and OMP.
 
 Features:
 - A simple settings form
-- A hook to present content on the article landing page
+- A hook to present content on the article landing page (works on OJS only)
 - cypress.io integration tests, executed using travis-ci.com ![image](https://app.travis-ci.com/pkp/pluginTemplate.svg?branch=main)
 
 If you use this template to create a plugin of your own, be sure to start with the right branch! For example...
