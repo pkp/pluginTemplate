@@ -10,3 +10,5 @@ If you use this template to create a plugin of your own, be sure to start with t
 - [`stable-3_3_0`](https://github.com/pkp/pluginTemplate/tree/stable-3_3_0) for 3.3.0-x,
 - [`stable-3_4_0`](https://github.com/pkp/pluginTemplate/tree/stable-3_3_0) for 3.4.0-x,
 - [`main`](https://github.com/pkp/pluginTemplate/tree/main) for the next development release.
+
+See the [PKP Plugin Guide](https://docs.pkp.sfu.ca/dev/plugin-guide/en/) for more documentation on plugins.
