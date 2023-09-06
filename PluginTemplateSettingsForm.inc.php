@@ -27,8 +27,7 @@ class PluginTemplateSettingsForm extends Form {
 	 */
 	public function initData() {
 		$context = Application::get()->getRequest()->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_SITE;
-		$this->setData('publicationStatement', $this->plugin->getSetting($contextId, 'publicationStatement'));
+		$this->setData('publicationStatement', $this->plugin->getSetting($context->getId(), 'publicationStatement'));
 		parent::initData();
 	}
 
@@ -66,8 +65,7 @@ class PluginTemplateSettingsForm extends Form {
 	 */
 	public function execute(...$functionArgs) {
 		$context = Application::get()->getRequest()->getContext();
-		$contextId = $context ? $context->getId() : CONTEXT_SITE;
-		$this->plugin->updateSetting($contextId, 'publicationStatement', $this->getData('publicationStatement'));
+		$this->plugin->updateSetting($context->getId(), 'publicationStatement', $this->getData('publicationStatement'));
 
 		// Tell the user that the save was successful.
 		import('classes.notification.NotificationManager');
