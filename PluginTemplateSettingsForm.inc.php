@@ -64,7 +64,7 @@ class PluginTemplateSettingsForm extends Form {
 	 *
 	 * @return null|mixed
 	 */
-	public function execute() {
+	public function execute(...$functionArgs) {
 		$context = Application::get()->getRequest()->getContext();
 		$contextId = $context ? $context->getId() : CONTEXT_SITE;
 		$this->plugin->updateSetting($contextId, 'publicationStatement', $this->getData('publicationStatement'));
@@ -78,6 +78,6 @@ class PluginTemplateSettingsForm extends Form {
 			['contents' => __('common.changesSaved')]
 		);
 
-		return parent::execute();
+		return parent::execute(...$functionArgs);
 	}
 }

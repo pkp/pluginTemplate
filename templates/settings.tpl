@@ -22,7 +22,7 @@
 	<!-- Always add the csrf token to secure your form -->
 	{csrf}
 
-	{fbvFormArea}
+	{fbvFormArea id="templatePluginSettingsArea"}
 		{fbvFormSection label="plugins.generic.pluginTemplate.publicationStatement"}
 			{fbvElement
 				type="text"
