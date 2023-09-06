@@ -49,12 +49,10 @@ class PluginTemplateSettingsForm extends Form {
             ->getRequest()
             ->getContext();
 
-        $contextId = $context?->getId() ?? Application::CONTEXT_SITE;
-
         $this->setData(
             'publicationStatement',
             $this->plugin->getSetting(
-                $contextId,
+                $context->getId(),
                 'publicationStatement'
             )
         );
@@ -101,10 +99,8 @@ class PluginTemplateSettingsForm extends Form {
             ->getRequest()
             ->getContext();
 
-        $contextId = $context?->getId() ?? Application::CONTEXT_SITE;
-
         $this->plugin->updateSetting(
-            $contextId,
+            $context->getId(),
             'publicationStatement',
             $this->getData('publicationStatement')
         );
