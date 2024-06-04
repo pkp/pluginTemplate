@@ -10,7 +10,7 @@
  * @brief Constants used in this plugin.
  */
 
-namespace APP\plugins\generic\pluginTemplate\Classes;
+namespace APP\plugins\generic\pluginTemplate\classes;
 
 class Constants
 {
