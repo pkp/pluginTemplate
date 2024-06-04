@@ -24,16 +24,19 @@ use PKP\form\validation\FormValidatorPost;
 
 class SettingsForm extends Form
 {
+    /** @var PluginTemplatePlugin */
+    public PluginTemplatePlugin $plugin;
+
     /**
-     * Defines the settings form's template and adds
-     * validation checks.
+     * Defines the settings form's template and adds validation checks.
      *
-     * Always add POST and CSRF validation to secure
-     * your form.
+     * Always add POST and CSRF validation to secure your form.
      */
-    public function __construct(public PluginTemplatePlugin $plugin)
+    public function __construct(PluginTemplatePlugin &$plugin)
     {
-        parent::__construct($plugin->getTemplateResource(Constants::settingsTemplate));
+        $this->plugin = &$plugin;
+
+        parent::__construct($this->plugin->getTemplateResource(Constants::settingsTemplate));
 
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
