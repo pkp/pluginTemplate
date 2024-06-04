@@ -10,12 +10,12 @@
  * @brief Settings form class for the this plugin.
  */
 
-namespace APP\plugins\generic\pluginTemplate\Classes\Settings;
+namespace APP\plugins\generic\pluginTemplate\classes\Settings;
 
 use APP\core\Application;
 use APP\notification\Notification;
 use APP\notification\NotificationManager;
-use APP\plugins\generic\pluginTemplate\Classes\Constants;
+use APP\plugins\generic\pluginTemplate\classes\Constants;
 use APP\plugins\generic\pluginTemplate\PluginTemplatePlugin;
 use APP\template\TemplateManager;
 use PKP\form\Form;
@@ -36,7 +36,7 @@ class SettingsForm extends Form
     {
         $this->plugin = &$plugin;
 
-        parent::__construct($this->plugin->getTemplateResource(Constants::settingsTemplate));
+        parent::__construct($this->plugin->getTemplateResource(Constants::SETTINGS_TEMPLATE));
 
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
@@ -55,10 +55,10 @@ class SettingsForm extends Form
             ->getContext();
 
         $this->setData(
-            Constants::settingsNamePublicationStatement,
+            Constants::PUBLICATION_STATEMENT,
             $this->plugin->getSetting(
                 $context->getId(),
-                Constants::settingsNamePublicationStatement
+                Constants::PUBLICATION_STATEMENT
             )
         );
 
@@ -70,7 +70,7 @@ class SettingsForm extends Form
      */
     public function readInputData(): void
     {
-        $this->readUserVars([Constants::settingsNamePublicationStatement]);
+        $this->readUserVars([Constants::PUBLICATION_STATEMENT]);
 
         parent::readInputData();
     }
@@ -106,8 +106,8 @@ class SettingsForm extends Form
 
         $this->plugin->updateSetting(
             $context->getId(),
-            Constants::settingsNamePublicationStatement,
-            $this->getData(Constants::settingsNamePublicationStatement)
+            Constants::PUBLICATION_STATEMENT,
+            $this->getData(Constants::PUBLICATION_STATEMENT)
         );
 
         $notificationMgr = new NotificationManager();

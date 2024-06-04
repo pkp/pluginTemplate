@@ -13,9 +13,9 @@
 namespace APP\plugins\generic\pluginTemplate;
 
 use APP\core\Request;
-use APP\plugins\generic\pluginTemplate\Classes\FrontEnd\ArticleDetails;
-use APP\plugins\generic\pluginTemplate\Classes\Settings\Actions;
-use APP\plugins\generic\pluginTemplate\Classes\Settings\Manage;
+use APP\plugins\generic\pluginTemplate\classes\FrontEnd\ArticleDetails;
+use APP\plugins\generic\pluginTemplate\classes\Settings\Actions;
+use APP\plugins\generic\pluginTemplate\classes\Settings\Manage;
 use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;

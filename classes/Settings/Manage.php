@@ -1,6 +1,6 @@
 <?php
 /**
- * @file Classes/Setings/Manage.php
+ * @file classes/Setings/Manage.php
  *
  * Copyright (c) 2017-2023 Simon Fraser University
  * Copyright (c) 2017-2023 John Willinsky
@@ -10,7 +10,7 @@
  * @brief Settings show and saving class for this plugin.
  */
 
-namespace APP\plugins\generic\pluginTemplate\Classes\Settings;
+namespace APP\plugins\generic\pluginTemplate\classes\Settings;
 
 use APP\core\Request;
 use APP\plugins\generic\pluginTemplate\PluginTemplatePlugin;

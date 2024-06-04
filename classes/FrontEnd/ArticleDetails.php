@@ -1,6 +1,6 @@
 <?php
 /**
- * @file Classes/FrontEnd/ArticleDetails.php
+ * @file classes/FrontEnd/ArticleDetails.php
  *
  * Copyright (c) 2017-2023 Simon Fraser University
  * Copyright (c) 2017-2023 John Willinsky
@@ -10,10 +10,10 @@
  * @brief Front end article details page class for the plugin.
  */
 
-namespace APP\plugins\generic\pluginTemplate\Classes\FrontEnd;
+namespace APP\plugins\generic\pluginTemplate\classes\FrontEnd;
 
 use APP\core\Application;
-use APP\plugins\generic\pluginTemplate\Classes\Constants;
+use APP\plugins\generic\pluginTemplate\classes\Constants;
 use APP\plugins\generic\pluginTemplate\PluginTemplatePlugin;
 use PKP\core\PKPString;
 
@@ -41,7 +41,7 @@ class ArticleDetails
     {
         // Get the publication statement for this journal or press
         $context = Application::get()->getRequest()->getContext();
-        $publicationStatement = $this->plugin->getSetting($context->getId(), Constants::settingsNamePublicationStatement);
+        $publicationStatement = $this->plugin->getSetting($context->getId(), Constants::PUBLICATION_STATEMENT);
 
         // Do not modify the output if there is no publication statement
         if (!$publicationStatement) {
