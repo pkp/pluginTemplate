@@ -25,8 +25,8 @@
 	{fbvFormSection label="plugins.generic.pluginTemplate.publicationStatement"}
 		{fbvElement
 			type="text"
-			id="publicationStatement"
-			value=$publicationStatement
+			id="{APP\plugins\generic\pluginTemplate\classes\Constants::PUBLICATION_STATEMENT}"
+			value=${APP\plugins\generic\pluginTemplate\classes\Constants::PUBLICATION_STATEMENT}
 			description="plugins.generic.pluginTemplate.publicationStatement.description"
 		}
 	{/fbvFormSection}

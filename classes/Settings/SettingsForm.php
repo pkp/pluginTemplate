@@ -1,37 +1,42 @@
 <?php
-
 /**
- * @file PluginTemplateSettingsForm.php
+ * @file SettingsForm.php
  *
  * Copyright (c) 2017-2023 Simon Fraser University
  * Copyright (c) 2017-2023 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class PluginTemplateSettingsForm
- * @brief Settings form class for the PluginTemplate plugin.
+ * @class SettingsForm
+ * @brief Settings form class for the this plugin.
  */
 
-namespace APP\plugins\generic\pluginTemplate;
+namespace APP\plugins\generic\pluginTemplate\classes\Settings;
 
 use APP\core\Application;
 use APP\notification\Notification;
 use APP\notification\NotificationManager;
+use APP\plugins\generic\pluginTemplate\classes\Constants;
+use APP\plugins\generic\pluginTemplate\PluginTemplatePlugin;
 use APP\template\TemplateManager;
 use PKP\form\Form;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
 
-class PluginTemplateSettingsForm extends Form {
+class SettingsForm extends Form
+{
+    /** @var PluginTemplatePlugin */
+    public PluginTemplatePlugin $plugin;
+
     /**
-     * Defines the settings form's template and adds
-     * validation checks.
+     * Defines the settings form's template and adds validation checks.
      *
-     * Always add POST and CSRF validation to secure
-     * your form.
+     * Always add POST and CSRF validation to secure your form.
      */
-    public function __construct(public PluginTemplatePlugin $plugin)
+    public function __construct(PluginTemplatePlugin &$plugin)
     {
-        parent::__construct($plugin->getTemplateResource('settings.tpl'));
+        $this->plugin = &$plugin;
+
+        parent::__construct($this->plugin->getTemplateResource(Constants::SETTINGS_TEMPLATE));
 
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
@@ -43,17 +48,17 @@ class PluginTemplateSettingsForm extends Form {
      * Settings are stored by context, so that each journal, press,
      * or preprint server can have different settings.
      */
-    public function initData()
+    public function initData(): void
     {
         $context = Application::get()
             ->getRequest()
             ->getContext();
 
         $this->setData(
-            'publicationStatement',
+            Constants::PUBLICATION_STATEMENT,
             $this->plugin->getSetting(
                 $context->getId(),
-                'publicationStatement'
+                Constants::PUBLICATION_STATEMENT
             )
         );
 
@@ -63,9 +68,9 @@ class PluginTemplateSettingsForm extends Form {
     /**
      * Load data that was submitted with the form
      */
-    public function readInputData()
+    public function readInputData(): void
     {
-        $this->readUserVars(['publicationStatement']);
+        $this->readUserVars([Constants::PUBLICATION_STATEMENT]);
 
         parent::readInputData();
     }
@@ -81,7 +86,7 @@ class PluginTemplateSettingsForm extends Form {
      * template so that it can be used in the URL that the form is
      * submitted to.
      */
-    public function fetch($request, $template = null, $display = false)
+    public function fetch($request, $template = null, $display = false): ?string
     {
         $templateMgr = TemplateManager::getManager($request);
         $templateMgr->assign('pluginName', $this->plugin->getName());
@@ -93,7 +98,7 @@ class PluginTemplateSettingsForm extends Form {
      * Save the plugin settings and notify the user
      * that the save was successful
      */
-    public function execute(...$functionArgs)
+    public function execute(...$functionArgs): mixed
     {
         $context = Application::get()
             ->getRequest()
@@ -101,8 +106,8 @@ class PluginTemplateSettingsForm extends Form {
 
         $this->plugin->updateSetting(
             $context->getId(),
-            'publicationStatement',
-            $this->getData('publicationStatement')
+            Constants::PUBLICATION_STATEMENT,
+            $this->getData(Constants::PUBLICATION_STATEMENT)
         );
 
         $notificationMgr = new NotificationManager();
