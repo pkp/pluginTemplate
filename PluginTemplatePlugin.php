@@ -2,8 +2,8 @@
 /**
  * @file PluginTemplatePlugin.php
  *
- * Copyright (c) 2017-2023 Simon Fraser University
- * Copyright (c) 2017-2023 John Willinsky
+ * Copyright (c) 2017-2026 Simon Fraser University
+ * Copyright (c) 2017-2026 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PluginTemplatePlugin
@@ -12,25 +12,41 @@
 
 namespace APP\plugins\generic\pluginTemplate;
 
-use APP\core\Request;
+use APP\core\Application;
 use APP\plugins\generic\pluginTemplate\classes\FrontEnd\ArticleDetails;
-use APP\plugins\generic\pluginTemplate\classes\Settings\Actions;
-use APP\plugins\generic\pluginTemplate\classes\Settings\Manage;
-use PKP\core\JSONMessage;
+use PKP\core\APIRouter;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\VueModal;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
 class PluginTemplatePlugin extends GenericPlugin
 {
+    private PluginTemplateSettingsController $controller;
+
     /** @copydoc GenericPlugin::register() */
     public function register($category, $path, $mainContextId = null): bool
     {
-        $success = parent::register($category, $path);
+        $success = parent::register($category, $path, $mainContextId);
 
-        if ($success && $this->getEnabled()) {
+        if (Application::isUnderMaintenance()) {
+            return $success;
+        }
+
+        if ($success && $this->getEnabled($mainContextId)) {
             // Display the publication statement on the article details page
             $articleDetails = new ArticleDetails($this);
             Hook::add('Templates::Article::Main', $articleDetails->addPublicationStatement(...));
+
+            // Register the settings API controller
+            $this->controller = new PluginTemplateSettingsController($this);
+
+            Hook::add('APIHandler::endpoints::plugin', function (string $hookName, APIRouter $apiRouter): bool {
+                $apiRouter->registerPluginApiControllers([
+                    $this->controller,
+                ]);
+                return Hook::CONTINUE;
+            });
         }
 
         return $success;
@@ -61,30 +77,42 @@ class PluginTemplatePlugin extends GenericPlugin
     /**
      * Add a settings action to the plugin's entry in the plugins list.
      *
-     * @param Request $request
+     * @param \APP\core\Request $request
      * @param array $actionArgs
      */
     public function getActions($request, $actionArgs): array
     {
-        $actions = new Actions($this);
-        return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
-    }
+        $actions = parent::getActions($request, $actionArgs);
 
-    /**
-     * Load a form when the `settings` button is clicked and
-     * save the form when the user saves it.
-     *
-     * @param array $args
-     * @param Request $request
-     */
-    public function manage($args, $request): JSONMessage
-    {
-        $manage = new Manage($this);
-        return $manage->execute($args, $request);
+        if (!$this->getEnabled()) {
+            return $actions;
+        }
+
+        $context = $request->getContext();
+        $apiUrl = $request->getDispatcher()->url(
+            $request,
+            Application::ROUTE_API,
+            $context->getPath(),
+            $this->controller->getHandlerPath()
+        );
+
+        $form = new PluginTemplateSettingsForm($apiUrl);
+
+        array_unshift($actions, new LinkAction(
+            'settings',
+            new VueModal(
+                'PkpFormModal',
+                [
+                    'title' => $this->getDisplayName(),
+                    'formConfig' => $form->getConfig(),
+                    'getApiUrl' => $apiUrl,
+                ]
+            ),
+            __('manager.plugins.settings'),
+            null
+        ));
+
+        return $actions;
     }
 }
 
-// For backwards compatibility -- expect this to be removed approx. OJS/OMP/OPS 3.6
-if (!PKP_STRICT_MODE) {
-    class_alias('\APP\plugins\generic\pluginTemplate\PluginTemplatePlugin', '\PluginTemplatePlugin');
-}

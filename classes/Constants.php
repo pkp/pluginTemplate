@@ -15,11 +15,6 @@ namespace APP\plugins\generic\pluginTemplate\classes;
 class Constants
 {
     /**
-     * The file name of the settings template
-     */
-    public const SETTINGS_TEMPLATE = 'settings.tpl';
-
-    /**
      * The name of the publication statement,
      * used to save to the database and to show on the front end.
      */
